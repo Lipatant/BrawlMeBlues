@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cjuw6ohc3uf24"]
 
-[ext_resource type="Script" path="res://Scenes/BrawlMeBlues/BrawlMeBlues.gd" id="1_lx83h"]
+[ext_resource type="Script" path="res://Scenes/BrawlMeBlues/SceneManager.gd" id="1_tfjda"]
 
-[node name="BrawlMeBlues" type="Node2D"]
-script = ExtResource("1_lx83h")
+[node name="BrawlMeBlues" type="Node"]
+script = ExtResource("1_tfjda")

@@ -24,6 +24,7 @@ var _wall_jump_movement : float = 0.0
 const BASE_GRAVITY : float = 16000.0
 
 const jump_particles_resource : Resource = preload("res://Particles/EntityJumpParticles.tscn")
+const double_jump_particles_resource : Resource = preload("res://Particles/EntityDoubleJumpParticles.tscn")
 const ceiling_particles_resource : Resource = preload("res://Particles/EntityCeilingParticles.tscn")
 
 # PROCESS #
@@ -79,7 +80,10 @@ func _entity_jump(force: bool = false) -> void:
 		if !force:
 			_jumps -= 1
 		add_motion({"motion": Vector2(0, -jump_force), "duration": 0.5, "decreasing": true, "id": "jump"})
-		generate_particles(jump_particles_resource)
+		if is_on_floor() or is_wall_sliding(true):
+			generate_particles(jump_particles_resource)
+		else:
+			generate_particles(double_jump_particles_resource)
 		if is_wall_sliding(true):
 			_wall_jump_movement = 1.2 if get_wall_normal().x > 0 else -1.2
 			_wall_jump_movement_timer.start()

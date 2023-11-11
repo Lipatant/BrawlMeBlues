@@ -8,6 +8,10 @@ extends Control
 	"Leave"  : $ButtonsContainer/Leave
 }
 
+# OTHER VARIABLES #
+
+var scene_manager : SceneManager
+
 # READY #
 
 func _ready() -> void:
@@ -16,8 +20,8 @@ func _ready() -> void:
 # SIGNALS #
 
 func _on_new_game_pressed():
-	get_tree().change_scene_to_file("res://Scenes/UserInterfaces/PlayerJoiningMenu.tscn")
+	if scene_manager:
+		scene_manager.load_player_joining_menu()
 
 func _on_leave_pressed():
-	pass # Replace with function body.
 	get_tree().quit()

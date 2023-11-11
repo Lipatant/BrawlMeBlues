@@ -17,13 +17,12 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 26.0
 grow_horizontal = 2
-text = "JUMP to join"
+text = "JUMP to join & DROP to leave"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PlayerJoiningContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 12
+layout_mode = 2
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -31,3 +30,22 @@ offset_top = -76.0
 grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
+
+[node name="StartingBar" type="ProgressBar" parent="."]
+layout_mode = 2
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -86.0
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
+[node name="StartingTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="StartingTimer" to="." method="_on_starting_timer_timeout"]

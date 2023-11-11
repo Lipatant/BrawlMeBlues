@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://uoeh65umg26v"]
+[gd_scene load_steps=3 format=3 uid="uid://bbplmywqhugl"]
 
-[ext_resource type="Script" path="res://Particles/ParticleEffect.gd" id="1_aq5lv"]
+[ext_resource type="Script" path="res://Particles/ParticleEffect.gd" id="1_jnw64"]
 
 [sub_resource type="Gradient" id="Gradient_ck08q"]
 colors = PackedColorArray(0.698039, 0.698039, 0.698039, 0.686275, 1, 1, 1, 0)
@@ -18,9 +18,9 @@ initial_velocity_min = 5.0
 initial_velocity_max = 5.0
 scale_amount_min = 2.0
 scale_amount_max = 3.0
-color = Color(0.564706, 0.564706, 0.564706, 0.686275)
+color = Color(0.698039, 0.698039, 0.698039, 0.686275)
 color_ramp = SubResource("Gradient_ck08q")
-script = ExtResource("1_aq5lv")
+script = ExtResource("1_jnw64")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

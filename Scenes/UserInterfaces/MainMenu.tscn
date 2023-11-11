@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dft5y8t5h7w3x"]
+[gd_scene load_steps=7 format=3 uid="uid://dft5y8t5h7w3x"]
 
 [ext_resource type="Texture2D" uid="uid://cq8ibnkcy3soy" path="res://Graphics/Icons/NewGame.png" id="2_85ylo"]
 [ext_resource type="Script" path="res://Scenes/UserInterfaces/MainMenu/MainMenu.gd" id="2_uo7cf"]
 [ext_resource type="Texture2D" uid="uid://ws170v82ygk1" path="res://Graphics/Icons/Leave.png" id="3_uet02"]
 [ext_resource type="Texture2D" uid="uid://xus48aq21t0m" path="res://Graphics/Icons/Settings.png" id="3_vx5ft"]
+[ext_resource type="FontFile" uid="uid://c6bnlc5vshrcw" path="res://Themes/Aileron/Aileron-Bold.otf" id="5_guavm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wpogf"]
+font = ExtResource("5_guavm")
+font_size = 30
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -21,6 +28,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -84.0
+offset_top = 78.0
 offset_right = 84.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -41,6 +49,18 @@ icon = ExtResource("3_vx5ft")
 layout_mode = 2
 text = "Exit"
 icon = ExtResource("3_uet02")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 105.0
+grow_horizontal = 2
+pivot_offset = Vector2(200, 52.5)
+text = "Brawl Me Blues"
+label_settings = SubResource("LabelSettings_wpogf")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="ButtonsContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="ButtonsContainer/Leave" to="." method="_on_leave_pressed"]
