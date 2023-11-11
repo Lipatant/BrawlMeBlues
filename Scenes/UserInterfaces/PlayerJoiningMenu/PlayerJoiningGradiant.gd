@@ -10,6 +10,7 @@ class_name PlayerJoiningGradiant
 
 @onready var _controller_controller : CanvasItem = $Controller/Controller
 @onready var _controller_keyboard : CanvasItem = $Controller/Keyboard
+@onready var _player_name : Label = $PlayerName
 
 # READY #
 
@@ -21,13 +22,20 @@ func _ready() -> void:
 
 # PLAYER #
 
-func set_player(player_id : int, scale : float = 1.0, scale_alpha : bool = true) -> void:
-	color = BmbColor.from_player_id(player_id, 0.8) * scale
+func set_player(player_id : int) -> void:
+	if !_player_name:
+		default_player_id = player_id
+	else:
+		color = BmbColor.from_player_id(player_id, 0.5)
+		_player_name.text = "Player " + str(player_id)
 
 func set_controller(is_using_controller: bool, _controller_id: int = 0) -> void:
-	if is_using_controller:
-		_controller_controller.visible = true
-		_controller_keyboard.visible = false
+	if !_controller_controller or !_controller_keyboard:
+		default_is_using_controller = is_using_controller
 	else:
-		_controller_controller.visible = false
-		_controller_keyboard.visible = true
+		if is_using_controller:
+			_controller_controller.visible = true
+			_controller_keyboard.visible = false
+		else:
+			_controller_controller.visible = false
+			_controller_keyboard.visible = true

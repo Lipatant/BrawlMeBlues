@@ -4,3 +4,5 @@
 
 [resource]
 default_font = ExtResource("1_qffwd")
+/colors/primary = Color(0, 0, 0, 1)
+/colors/secondary = Color(1, 1, 1, 1)
