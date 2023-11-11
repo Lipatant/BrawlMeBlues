@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://du1a1aqx27wvf"]
+[gd_scene load_steps=8 format=3 uid="uid://du1a1aqx27wvf"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_l3ay0"]
 [ext_resource type="Texture2D" uid="uid://pml0sp3ojmhh" path="res://Graphics/Characters/Base/Skin.png" id="2_5dtjj"]
@@ -6,40 +6,44 @@
 [ext_resource type="Texture2D" uid="uid://ugxqiii3e8v7" path="res://Graphics/Characters/Base/Iris.png" id="4_xk5bj"]
 [ext_resource type="Texture2D" uid="uid://b58qinivcy0bn" path="res://Graphics/Characters/Base/Outline.png" id="5_t11y4"]
 
+[sub_resource type="Gradient" id="Gradient_2qh4j"]
+colors = PackedColorArray(1, 1, 1, 0.219608, 0, 0, 0, 0)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7yvmh"]
 size = Vector2(8, 11)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_l3ay0")
-input_up = null
-input_down = null
-input_left = null
-input_right = null
-input_jump = null
-speed = null
-jump_force = null
-jump_count = null
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 32
+lifetime = 0.2
+gravity = Vector2(0, 0)
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color = Color(0, 1, 1, 1)
+color_ramp = SubResource("Gradient_2qh4j")
 
-[node name="Skin" type="Sprite2D" parent="Node2D"]
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Skin" type="Sprite2D" parent="Sprite"]
 modulate = Color(0.45098, 0.45098, 0.45098, 1)
 texture = ExtResource("2_5dtjj")
 hframes = 4
 vframes = 2
 
-[node name="Eyes" type="Sprite2D" parent="Node2D"]
+[node name="Eyes" type="Sprite2D" parent="Sprite"]
 texture = ExtResource("3_d6clr")
 hframes = 4
 vframes = 2
 
-[node name="Iris" type="Sprite2D" parent="Node2D"]
+[node name="Iris" type="Sprite2D" parent="Sprite"]
 modulate = Color(0.0862745, 0.0862745, 0.0862745, 1)
 texture = ExtResource("4_xk5bj")
 hframes = 4
 vframes = 2
 
-[node name="Outline" type="Sprite2D" parent="Node2D"]
+[node name="Outline" type="Sprite2D" parent="Sprite"]
 modulate = Color(0.0862745, 0.0862745, 0.0862745, 1)
 texture = ExtResource("5_t11y4")
 hframes = 4

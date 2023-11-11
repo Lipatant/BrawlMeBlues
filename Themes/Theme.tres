@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d1h354bcortbn"]
+
+[ext_resource type="FontFile" uid="uid://c5pttpk871j4y" path="res://Themes/Aileron/Aileron-Heavy.otf" id="1_qffwd"]
+
+[resource]
+default_font = ExtResource("1_qffwd")

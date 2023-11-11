@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch8sgqe4mja7x"]
+
+[ext_resource type="Script" path="res://Scenes/UserInterfaces/PlayerJoiningMenu/PlayerJoiningMenu.gd" id="1_ciira"]
+[ext_resource type="PackedScene" uid="uid://bn5m2mxxs8keg" path="res://Scenes/UserInterfaces/PlayerJoiningMenu/PlayerJoiningGradiant.tscn" id="2_8gfrm"]
+
+[node name="PlayerJoiningMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ciira")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+text = "JUMP to join"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -76.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="PlayerJoiningGradiant" parent="HBoxContainer" instance=ExtResource("2_8gfrm")]
+layout_mode = 2
+default_player_id = 1
+
+[node name="PlayerJoiningGradiant2" parent="HBoxContainer" instance=ExtResource("2_8gfrm")]
+layout_mode = 2
+default_player_id = 2
+
+[node name="PlayerJoiningGradiant3" parent="HBoxContainer" instance=ExtResource("2_8gfrm")]
+layout_mode = 2
+default_player_id = 3
+
+[node name="PlayerJoiningGradiant4" parent="HBoxContainer" instance=ExtResource("2_8gfrm")]
+layout_mode = 2
+default_player_id = 4

@@ -6,7 +6,7 @@
 colors = PackedColorArray(0.698039, 0.698039, 0.698039, 0.686275, 1, 1, 1, 0)
 
 [node name="EntityJumpParticles" type="CPUParticles2D"]
-position = Vector2(0, 7)
+position = Vector2(0, 5)
 emitting = false
 amount = 10
 one_shot = true

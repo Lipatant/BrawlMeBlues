@@ -86,7 +86,7 @@ func _entity_jump(force: bool = false) -> void:
 
 # GET CONSTANTS #
 
-static func _get_gravity_force() -> float:
+func _get_gravity_force() -> float:
 	return BASE_GRAVITY
 
 # MOTIONS #
@@ -160,5 +160,5 @@ func generate_particles(resource: Resource) -> Node2D:
 	var particles : Node2D = resource.instantiate()
 	if particles:
 		get_tree().current_scene.add_child(particles)
-		particles.global_position = global_position
+		particles.global_position = global_position + particles.position
 	return particles

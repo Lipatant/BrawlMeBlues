@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://dft5y8t5h7w3x"]
+
+[ext_resource type="Theme" uid="uid://d1h354bcortbn" path="res://Themes/Theme.tres" id="1_gwf4p"]
+[ext_resource type="Texture2D" uid="uid://cq8ibnkcy3soy" path="res://Graphics/Icons/NewGame.png" id="2_85ylo"]
+[ext_resource type="Script" path="res://Scenes/UserInterfaces/MainMenu/MainMenu.gd" id="2_uo7cf"]
+[ext_resource type="Texture2D" uid="uid://ws170v82ygk1" path="res://Graphics/Icons/Leave.png" id="3_uet02"]
+[ext_resource type="Texture2D" uid="uid://xus48aq21t0m" path="res://Graphics/Icons/Settings.png" id="3_vx5ft"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gwf4p")
+script = ExtResource("2_uo7cf")
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -84.0
+offset_right = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="NewGame" type="Button" parent="ButtonsContainer"]
+layout_mode = 2
+text = "New Game"
+icon = ExtResource("2_85ylo")
+
+[node name="Settings" type="Button" parent="ButtonsContainer"]
+layout_mode = 2
+disabled = true
+text = "Settings"
+icon = ExtResource("3_vx5ft")
+
+[node name="Leave" type="Button" parent="ButtonsContainer"]
+layout_mode = 2
+text = "Exit"
+icon = ExtResource("3_uet02")
+
+[connection signal="pressed" from="ButtonsContainer/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="ButtonsContainer/Leave" to="." method="_on_leave_pressed"]
