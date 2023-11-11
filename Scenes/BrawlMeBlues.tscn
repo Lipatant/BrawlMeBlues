@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjuw6ohc3uf24"]
+
+[ext_resource type="Script" path="res://Scenes/BrawlMeBlues/BrawlMeBlues.gd" id="1_lx83h"]
+[ext_resource type="PackedScene" uid="uid://lom3vulr3p4a" path="res://Scenes/Level.tscn" id="2_ueqb2"]
+
+[node name="BrawlMeBlues" type="Node2D"]
+script = ExtResource("1_lx83h")
+
+[node name="Level" parent="." instance=ExtResource("2_ueqb2")]

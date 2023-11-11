@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj32iapf73uaj"]
+
+[ext_resource type="Script" path="res://Particles/ParticleEffect.gd" id="1_2i0bw"]
+
+[sub_resource type="Gradient" id="Gradient_ck08q"]
+colors = PackedColorArray(0.698039, 0.698039, 0.698039, 0.686275, 1, 1, 1, 0)
+
+[node name="EntityJumpParticles" type="CPUParticles2D"]
+position = Vector2(0, -30)
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 0.98
+lifetime_randomness = 0.2
+direction = Vector2(0, 1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+color = Color(0.698039, 0.698039, 0.698039, 0.686275)
+color_ramp = SubResource("Gradient_ck08q")
+script = ExtResource("1_2i0bw")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
