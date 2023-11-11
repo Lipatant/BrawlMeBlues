@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://unal6nhoi068"]
+
+[ext_resource type="Script" path="res://Entities/Entity/EntityJumpParticles.gd" id="1_rfhbg"]
+
+[node name="EntityJumpParticles" type="CPUParticles2D"]
+position = Vector2(0, 7)
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 0.98
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+color = Color(0.698039, 0.698039, 0.698039, 0.686275)
+script = ExtResource("1_rfhbg")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
