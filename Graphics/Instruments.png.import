@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://beuuergqhd5ry"
-path="res://.godot/imported/Iris.png-267d9f845b11d01d96562c1f9a476136.ctex"
+uid="uid://bqlw2c8udwvqp"
+path="res://.godot/imported/Instruments.png-926ba4340c1d5afdad25df1063b402cb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Cat/Iris.png"
-dest_files=["res://.godot/imported/Iris.png-267d9f845b11d01d96562c1f9a476136.ctex"]
+source_file="res://Graphics/Instruments.png"
+dest_files=["res://.godot/imported/Instruments.png-926ba4340c1d5afdad25df1063b402cb.ctex"]
 
 [params]
 

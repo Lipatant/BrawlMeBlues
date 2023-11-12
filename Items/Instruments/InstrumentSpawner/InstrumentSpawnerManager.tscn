@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bemyowtcgjkug"]
+
+[ext_resource type="Script" path="res://Items/Instruments/InstrumentSpawner/InstrumentSpawnerManager.gd" id="1_j4022"]
+
+[node name="InstrumentSpawnerManager" type="Node2D"]
+script = ExtResource("1_j4022")

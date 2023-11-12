@@ -9,23 +9,109 @@ class_name Entity
 
 # ONREADIES #
 
+@onready var _invincibiltiy_timer : Timer = $InvincibilityTimer
+@onready var _item_holder : Node2D = $ItemHolder
+@onready var _progress_bar : Range = $ProgressBar
+@onready var _respawn_timer : Timer = $RespawnTimer
+@onready var _sprite : Node2D = $Sprite
 @onready var _wall_jump_movement_timer : Timer = $WallJumpMovement
 
 # OTHER VARIABLES #
 
-var _motions : Array[Dictionary] = []
-var _jumps : int = 0
-var _since_floor : float = 0.0
+var held_item : Item
+var progress : float = 1.0
+var progress_max : float = 20.0
 
+var _jumps : int = 0
+var _motions : Array[Dictionary] = []
+var _since_floor : float = 0.0
 var _wall_jump_movement : float = 0.0
+
+var _hit : bool = false
+var _hit_vector : Vector2
 
 # CONSTS #
 
 const BASE_GRAVITY : float = 16000.0
 
-const jump_particles_resource : Resource = preload("res://Particles/EntityJumpParticles.tscn")
-const double_jump_particles_resource : Resource = preload("res://Particles/EntityDoubleJumpParticles.tscn")
 const ceiling_particles_resource : Resource = preload("res://Particles/EntityCeilingParticles.tscn")
+const double_jump_particles_resource : Resource = preload("res://Particles/EntityDoubleJumpParticles.tscn")
+const destroyed_particles_resource : Resource = preload("res://Particles/EntityDestroyedParticles.tscn")
+const jump_particles_resource : Resource = preload("res://Particles/EntityJumpParticles.tscn")
+
+# SPAWN #
+
+func _ready() -> void:
+	if _progress_bar:
+		_progress_bar.max_value = progress_max
+	spawn()
+
+func spawn(spawn_position: Vector2 = Vector2(0, 0)) -> void:
+	respawn(spawn_position)
+
+func respawn(spawn_position: Vector2 = Vector2(0, 0)) -> void:
+	position = spawn_position
+	_jumps = 0
+	_motions = []
+	_hit = false
+	_invincibiltiy_timer.start()
+	if _sprite:
+		_sprite.visible = true
+
+func hit(_entity_interacted: Entity = null) -> void:
+	generate_particles(destroyed_particles_resource)
+	_hit = true
+	_hit_vector = position
+	_respawn_timer.start()
+	unequip()
+	if _sprite:
+		_sprite.visible = false
+
+func _on_respawn_timer_timeout():
+	respawn()
+
+# ITEMS #
+
+func equip(item: Item = null, destroy_previous: bool = false) -> void:
+	if item:
+		if held_item:
+			unequip(destroy_previous)
+		held_item = item
+		if _item_holder:
+			item.equip_at_node(_item_holder)
+		else:
+			item.equip_at_node(self)
+		item.position = Vector2(0, 0)
+	else:
+		if held_item:
+			held_item.unequip(destroy_previous)
+			held_item = null
+
+func unequip(destroy: bool = false) -> void:
+	equip(null, destroy)
+
+func item_use() -> bool:
+	if !held_item:
+		return false
+	return held_item.item_use()
+
+func item_drop() -> bool:
+	if !held_item:
+		return false
+	held_item.item_special()
+	unequip(true)
+	return true
+
+# TARGET #
+
+func is_targetable(_entity_interacted: Entity = null) -> bool:
+	return !_hit
+
+func is_hittable(_entity_interacted: Entity = null) -> bool:
+	return !_hit and _invincibiltiy_timer.is_stopped()
+
+func can_grab_item(_item: Item = null) -> bool:
+	return !_hit and !held_item
 
 # PROCESS #
 
@@ -52,7 +138,16 @@ func _physics_process(delta: float) -> void:
 	#
 	velocity += _process_motion(delta)
 	velocity *= delta
-	move_and_slide()
+	if _hit:
+		_motions = []
+		if !_respawn_timer.is_stopped():
+			position = _hit_vector * (_respawn_timer.time_left / _respawn_timer.wait_time)
+	else:
+		move_and_slide()
+	if held_item and held_item is Mustache:
+		progress += delta
+		if _progress_bar:
+			_progress_bar.value = progress
 	if is_on_ceiling():
 		if _remove_motion_from_id("jump"):
 			generate_particles(ceiling_particles_resource)
@@ -72,6 +167,9 @@ func _entity_movement() -> Vector2:
 
 func is_wall_sliding(only: bool = false) -> bool:
 	return is_on_wall_only() if only else is_on_wall()
+
+func get_entity_rotation() -> Vector2:
+	return Vector2(0, 0)
 
 # JUMP #
 

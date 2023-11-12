@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://oyorii4bh861"]
+
+[ext_resource type="Script" path="res://Items/Special/Mustache/Mustache.gd" id="1_jblxj"]
+[ext_resource type="PackedScene" uid="uid://caxeyoy7nr7lc" path="res://Items/Instruments/InstrumentSprite.tscn" id="2_vtqrh"]
+[ext_resource type="Texture2D" uid="uid://c0cp2rnrcijm1" path="res://Graphics/SpecialItems.png" id="3_1j5s3"]
+
+[sub_resource type="Gradient" id="Gradient_sw260"]
+offsets = PackedFloat32Array(0.641026, 1)
+colors = PackedColorArray(1, 1, 1, 0.219608, 0, 0, 0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_18nc4"]
+size = Vector2(16, 16)
+
+[node name="Mustache" type="Area2D"]
+collision_layer = 2048
+collision_mask = 256
+script = ExtResource("1_jblxj")
+
+[node name="Trail" type="CPUParticles2D" parent="."]
+emission_shape = 3
+emission_rect_extents = Vector2(6, 6)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_sw260")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_18nc4")
+debug_color = Color(0.423529, 0.603922, 0, 0.419608)
+
+[node name="Sprite" parent="." instance=ExtResource("2_vtqrh")]
+texture = ExtResource("3_1j5s3")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

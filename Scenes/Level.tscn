@@ -1,8 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://lom3vulr3p4a"]
+[gd_scene load_steps=11 format=3 uid="uid://lom3vulr3p4a"]
 
 [ext_resource type="Script" path="res://Scenes/Level/Level.gd" id="1_mckn7"]
+[ext_resource type="PackedScene" uid="uid://bemyowtcgjkug" path="res://Items/Instruments/InstrumentSpawner/InstrumentSpawnerManager.tscn" id="2_88dxr"]
 [ext_resource type="Texture2D" uid="uid://dovpfguovl1t1" path="res://Graphics/Tilemap.png" id="2_ldp3v"]
+[ext_resource type="PackedScene" uid="uid://oyorii4bh861" path="res://Items/Special/Mustache.tscn" id="2_ottlb"]
 [ext_resource type="Texture2D" uid="uid://dfgnv7wadbcuy" path="res://Graphics/TilemapTexture.png" id="2_sg277"]
+[ext_resource type="PackedScene" uid="uid://d4hcf8k2oxpp8" path="res://Items/Instruments/InstrumentSpawner.tscn" id="3_uu1eo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bdvc"]
+size = Vector2(747.5, 462)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wb1hj"]
 texture = ExtResource("2_sg277")
@@ -247,7 +253,38 @@ sources/1 = SubResource("TileSetAtlasSource_fhicc")
 [node name="Level" type="Node2D"]
 script = ExtResource("1_mckn7")
 
+[node name="PlayableArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="PlayableAreaShape" type="CollisionShape2D" parent="PlayableArea"]
+shape = SubResource("RectangleShape2D_4bdvc")
+debug_color = Color(1, 1, 1, 0.101961)
+
 [node name="PlayerSpawnPoint" type="Node2D" parent="."]
+
+[node name="Mustache" parent="." instance=ExtResource("2_ottlb")]
+position = Vector2(0, -89)
+
+[node name="InstrumentSpawnerManager" parent="." instance=ExtResource("2_88dxr")]
+
+[node name="InstrumentSpawner1" parent="InstrumentSpawnerManager" instance=ExtResource("3_uu1eo")]
+position = Vector2(-136, 0)
+
+[node name="InstrumentSpawner2" parent="InstrumentSpawnerManager" instance=ExtResource("3_uu1eo")]
+position = Vector2(136, 0)
+
+[node name="InstrumentSpawner3" parent="InstrumentSpawnerManager" instance=ExtResource("3_uu1eo")]
+position = Vector2(-136, 89)
+
+[node name="InstrumentSpawner4" parent="InstrumentSpawnerManager" instance=ExtResource("3_uu1eo")]
+position = Vector2(136, 89)
+
+[node name="InstrumentSpawner5" parent="InstrumentSpawnerManager" instance=ExtResource("3_uu1eo")]
+position = Vector2(-136, -89)
+
+[node name="InstrumentSpawner6" parent="InstrumentSpawnerManager" instance=ExtResource("3_uu1eo")]
+position = Vector2(136, -89)
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(0, 8)

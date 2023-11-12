@@ -8,6 +8,8 @@ class_name Level
 
 # OTHER VARIABLES #
 
+var scene_manager : SceneManager
+
 var _players : Dictionary
 var _players_waiting : Array[int]
 
@@ -17,8 +19,16 @@ func _process(_delta: float) -> void:
 	if !_players_waiting.is_empty():
 		for player_id in _players_waiting:
 			if _players.has(player_id):
-				_players["player_entity"] = _add_player_entity(_players["is_using_controller"], _players["controller_id"], player_id)
+				_players[player_id]["player_entity"] = _add_player_entity(_players[player_id]["is_using_controller"], _players[player_id]["controller_id"], player_id)
 		_players_waiting = []
+
+func _physics_process(_delta: float) -> void:
+	for player_id in _players:
+		if !_players[player_id]["player_entity"] or _players[player_id]["player_entity"].progress < _players[player_id]["player_entity"].progress_max:
+			continue
+		if scene_manager:
+			scene_manager.load_main_menu()
+		break
 
 # PLAYERS #
 

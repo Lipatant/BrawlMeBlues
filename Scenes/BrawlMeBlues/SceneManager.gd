@@ -22,6 +22,8 @@ func _ready() -> void:
 func _load_scene(resource: Resource) -> CanvasItem:
 	if _current_scene:
 		_current_scene.queue_free()
+	for child in get_children():
+		child.queue_free()
 	_current_scene = resource.instantiate()
 	if _current_scene:
 		add_child(_current_scene)
@@ -45,5 +47,9 @@ func load_player_joining_menu() -> void:
 # GET DATA #
 
 func set_players(players: Dictionary = {}):
-	print(players)
 	_players = players
+
+# OTHER #
+
+func get_current_scene() -> Node:
+	return get_tree().current_scene.get_children()[0]

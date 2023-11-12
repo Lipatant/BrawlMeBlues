@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw2tl0g87qxdg"
-path="res://.godot/imported/Eyes.png-0bc91a967b7719589a93d094072c19ce.ctex"
+uid="uid://dmvqjlbgg4u1k"
+path="res://.godot/imported/Projectiles.png-43ff5ee22e7f149bbda9f5c0590fef26.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Cat/Eyes.png"
-dest_files=["res://.godot/imported/Eyes.png-0bc91a967b7719589a93d094072c19ce.ctex"]
+source_file="res://Graphics/Projectiles.png"
+dest_files=["res://.godot/imported/Projectiles.png-43ff5ee22e7f149bbda9f5c0590fef26.ctex"]
 
 [params]
 

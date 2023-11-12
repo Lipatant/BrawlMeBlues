@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://caxeyoy7nr7lc"]
+
+[ext_resource type="Texture2D" uid="uid://bqlw2c8udwvqp" path="res://Graphics/Instruments.png" id="1_eirkr"]
+
+[node name="InstrumentSprite" type="Sprite2D"]
+texture = ExtResource("1_eirkr")
+hframes = 4
+frame = 1

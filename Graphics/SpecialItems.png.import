@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7k077is5gky6"
-path="res://.godot/imported/Furr.png-73c22d4b649c6e33b637795a82aa25bc.ctex"
+uid="uid://c0cp2rnrcijm1"
+path="res://.godot/imported/SpecialItems.png-36a97c2a360a792f8bb27df336accf31.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Cat/Furr.png"
-dest_files=["res://.godot/imported/Furr.png-73c22d4b649c6e33b637795a82aa25bc.ctex"]
+source_file="res://Graphics/SpecialItems.png"
+dest_files=["res://.godot/imported/SpecialItems.png-36a97c2a360a792f8bb27df336accf31.ctex"]
 
 [params]
 

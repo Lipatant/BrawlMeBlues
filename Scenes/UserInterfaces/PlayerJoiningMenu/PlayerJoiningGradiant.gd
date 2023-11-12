@@ -10,6 +10,7 @@ class_name PlayerJoiningGradiant
 
 @onready var _controller_controller : CanvasItem = $Controller/Controller
 @onready var _controller_keyboard : CanvasItem = $Controller/Keyboard
+@onready var _controller_name : Label = $ControllerName
 @onready var _player_name : Label = $PlayerName
 
 # READY #
@@ -30,12 +31,14 @@ func set_player(player_id : int) -> void:
 		_player_name.text = "Player " + str(player_id)
 
 func set_controller(is_using_controller: bool, _controller_id: int = 0) -> void:
-	if !_controller_controller or !_controller_keyboard:
+	if !_controller_controller or !_controller_keyboard or !_controller_name:
 		default_is_using_controller = is_using_controller
 	else:
 		if is_using_controller:
 			_controller_controller.visible = true
 			_controller_keyboard.visible = false
+			_controller_name.text = Input.get_joy_name(_controller_id)
 		else:
 			_controller_controller.visible = false
 			_controller_keyboard.visible = true
+			_controller_name.text = ""
