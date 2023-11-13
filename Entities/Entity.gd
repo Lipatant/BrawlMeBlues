@@ -8,6 +8,7 @@ class_name Entity
 @export var jump_count : int = 2
 
 @export var sprite : Node2D
+@export var sprite_animation : AnimationPlayer
 
 # ONREADIES #
 
@@ -131,15 +132,25 @@ func _physics_process(delta: float) -> void:
 		_remove_motion_from_id("jump")
 		velocity.y /= 5
 	# Entity Movement
-	var entity_moment : Vector2 = _entity_movement()
+	var entity_movement : Vector2 = _entity_movement()
+	if sprite_animation:
+		if is_on_floor():
+			if entity_movement.x != 0 and !is_on_wall():
+				sprite_animation.play("walking")
+			else:
+				sprite_animation.play("standing")
+		elif is_on_wall():
+			sprite_animation.play("wall_slide")
+		else:
+			sprite_animation.play("jumping")
 	if !_wall_jump_movement_timer.is_stopped():
-		entity_moment.x *= 1 - (_wall_jump_movement_timer.time_left / _wall_jump_movement_timer.wait_time)
-		entity_moment.x += _wall_jump_movement * (0.75 + (_wall_jump_movement_timer.time_left / _wall_jump_movement_timer.wait_time) / 4)
-	if entity_moment.x > 1.0:
-		entity_moment.x = 1.0
-	elif entity_moment.x < -1.0:
-		entity_moment.x = -1.0
-	velocity += entity_moment * speed
+		entity_movement.x *= 1 - (_wall_jump_movement_timer.time_left / _wall_jump_movement_timer.wait_time)
+		entity_movement.x += _wall_jump_movement * (0.75 + (_wall_jump_movement_timer.time_left / _wall_jump_movement_timer.wait_time) / 4)
+	if entity_movement.x > 1.0:
+		entity_movement.x = 1.0
+	elif entity_movement.x < -1.0:
+		entity_movement.x = -1.0
+	velocity += entity_movement * speed
 	#
 	velocity += _process_motion(delta)
 	velocity *= delta

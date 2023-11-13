@@ -34,7 +34,7 @@ func _ready() -> void:
 	if _sprite_colored:
 		_sprite_colored.modulate = BmbColor.from_player_id(player_id) * Color(0.8, 0.8, 0.8)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if sprite and sprite_animated and sprite != sprite_animated:
 		_copy_sprite_states(sprite_animated, sprite)
 

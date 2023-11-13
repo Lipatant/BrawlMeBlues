@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://du1a1aqx27wvf"]
+[gd_scene load_steps=14 format=3 uid="uid://du1a1aqx27wvf"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_l3ay0"]
 [ext_resource type="Texture2D" uid="uid://yun4ohisnxfh" path="res://Graphics/Characters/Base.png" id="2_1svti"]
@@ -10,13 +10,84 @@
 [sub_resource type="Gradient" id="Gradient_2qh4j"]
 colors = PackedColorArray(1, 1, 1, 0.219608, 0, 0, 0, 0)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7yvmh"]
-size = Vector2(8, 11)
+[sub_resource type="Animation" id="Animation_167qp"]
+resource_name = "standing"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+[sub_resource type="Animation" id="Animation_bul7i"]
+resource_name = "walking"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 1, 3]
+}
+
+[sub_resource type="Animation" id="Animation_qbusc"]
+resource_name = "jumping"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_wooqb"]
+resource_name = "wall_slide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lilpo"]
+_data = {
+"jumping": SubResource("Animation_qbusc"),
+"standing": SubResource("Animation_167qp"),
+"walking": SubResource("Animation_bul7i"),
+"wall_slide": SubResource("Animation_wooqb")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7yvmh"]
+size = Vector2(10, 11)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "sprite_animation")]
 collision_layer = 768
 script = ExtResource("1_l3ay0")
 sprite = NodePath("ComposedSprite")
+sprite_animation = NodePath("Sprite/SpriteAnimation")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 offset_left = 6.0
@@ -39,32 +110,37 @@ color_ramp = SubResource("Gradient_2qh4j")
 [node name="Sprite" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("2_1svti")
-hframes = 4
+hframes = 6
 vframes = 2
+frame = 1
+
+[node name="SpriteAnimation" type="AnimationPlayer" parent="Sprite"]
+libraries = {
+"": SubResource("AnimationLibrary_lilpo")
+}
 
 [node name="ComposedSprite" type="Node2D" parent="."]
 
 [node name="Skin" type="Sprite2D" parent="ComposedSprite"]
-self_modulate = Color(0.45098, 0.45098, 0.45098, 1)
 texture = ExtResource("2_5dtjj")
-hframes = 4
+hframes = 6
 vframes = 2
 
 [node name="Outline" type="Sprite2D" parent="ComposedSprite/Skin"]
 modulate = Color(0.0862745, 0.0862745, 0.0862745, 1)
 texture = ExtResource("5_t11y4")
-hframes = 4
+hframes = 6
 vframes = 2
 
 [node name="Eyes" type="Sprite2D" parent="ComposedSprite"]
 texture = ExtResource("3_d6clr")
-hframes = 4
+hframes = 6
 vframes = 2
 
 [node name="Iris" type="Sprite2D" parent="ComposedSprite"]
 modulate = Color(0.0862745, 0.0862745, 0.0862745, 1)
 texture = ExtResource("4_xk5bj")
-hframes = 4
+hframes = 6
 vframes = 2
 
 [node name="ItemHolder" type="Node2D" parent="."]
