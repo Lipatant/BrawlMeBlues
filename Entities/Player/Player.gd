@@ -19,6 +19,7 @@ class_name Player
 # ONREADIES #
 
 @onready var _trail : CPUParticles2D = $Trail
+@onready var _sprite_colored : Sprite2D = $ComposedSprite/Skin
 
 # OTHER VARIABLES #
 
@@ -30,6 +31,18 @@ func _ready() -> void:
 	super._ready()
 	if _trail:
 		_trail.color = BmbColor.from_player_id(player_id)
+	if _sprite_colored:
+		_sprite_colored.modulate = BmbColor.from_player_id(player_id) * Color(0.8, 0.8, 0.8)
+
+func _process(delta: float) -> void:
+	if sprite and sprite_animated and sprite != sprite_animated:
+		_copy_sprite_states(sprite_animated, sprite)
+
+func _copy_sprite_states(source: Sprite2D, target: Node) -> void:
+	for child in target.get_children():
+		if child is Sprite2D:
+			child.frame = source.frame
+		_copy_sprite_states(source, child)
 
 # MOVEMENT #
 
@@ -43,9 +56,8 @@ func _entity_movement() -> Vector2:
 	if (Input.get_action_strength(BmbInput.get_input(input_right, is_using_controller, controller_id)) - Input.get_action_strength(BmbInput.get_input(input_left, is_using_controller, controller_id))) != 0.0 or (Input.get_action_strength(BmbInput.get_input(input_down, is_using_controller, controller_id)) - Input.get_action_strength(BmbInput.get_input(input_up, is_using_controller, controller_id))) != 0.0:
 		_current_player_rotation = Vector2(Input.get_action_strength(BmbInput.get_input(input_right, is_using_controller, controller_id)) - Input.get_action_strength(BmbInput.get_input(input_left, is_using_controller, controller_id)), Input.get_action_strength(BmbInput.get_input(input_down, is_using_controller, controller_id)) - Input.get_action_strength(BmbInput.get_input(input_up, is_using_controller, controller_id)))
 	var local_movement : float = Input.get_action_strength(BmbInput.get_input(input_right, is_using_controller, controller_id)) - Input.get_action_strength(BmbInput.get_input(input_left, is_using_controller, controller_id))
-	if local_movement != 0.0:
-		for child in _sprite.get_children(): if child is Sprite2D:
-			child.frame_coords.y = 0 if local_movement > 0.0 else 1
+	if local_movement != 0.0 and sprite_animated:
+		sprite_animated.frame_coords.y = 0 if local_movement > 0.0 else 1
 	return Vector2(local_movement, 0.0)
 
 func is_wall_sliding(only: bool = false) -> bool:

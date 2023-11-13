@@ -11,6 +11,6 @@ func item_use_action() -> bool:
 
 func item_special() -> bool:
 	update_equip_next()
-	owner_entity.add_motion({"motion": owner_entity.get_entity_rotation() * -100000, "duration": 0.5, "decreasing": true})
+	owner_entity.add_motion({"motion": owner_entity.get_entity_rotation() * -80000, "duration": 0.5, "decreasing": true})
 	_spawn_projectile(owner_entity.get_entity_rotation(), 1000, 0)
 	return false

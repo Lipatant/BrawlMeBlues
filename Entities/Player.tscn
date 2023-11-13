@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://du1a1aqx27wvf"]
+[gd_scene load_steps=9 format=3 uid="uid://du1a1aqx27wvf"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_l3ay0"]
+[ext_resource type="Texture2D" uid="uid://yun4ohisnxfh" path="res://Graphics/Characters/Base.png" id="2_1svti"]
 [ext_resource type="Texture2D" uid="uid://pml0sp3ojmhh" path="res://Graphics/Characters/Base/Skin.png" id="2_5dtjj"]
 [ext_resource type="Texture2D" uid="uid://b55x6mbfwfqkq" path="res://Graphics/Characters/Base/Eyes.png" id="3_d6clr"]
 [ext_resource type="Texture2D" uid="uid://ugxqiii3e8v7" path="res://Graphics/Characters/Base/Iris.png" id="4_xk5bj"]
@@ -12,9 +13,10 @@ colors = PackedColorArray(1, 1, 1, 0.219608, 0, 0, 0, 0)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7yvmh"]
 size = Vector2(8, 11)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 collision_layer = 768
 script = ExtResource("1_l3ay0")
+sprite = NodePath("ComposedSprite")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 offset_left = 6.0
@@ -34,28 +36,34 @@ scale_amount_min = 4.0
 scale_amount_max = 4.0
 color_ramp = SubResource("Gradient_2qh4j")
 
-[node name="Sprite" type="Node2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_1svti")
+hframes = 4
+vframes = 2
 
-[node name="Skin" type="Sprite2D" parent="Sprite"]
-modulate = Color(0.45098, 0.45098, 0.45098, 1)
+[node name="ComposedSprite" type="Node2D" parent="."]
+
+[node name="Skin" type="Sprite2D" parent="ComposedSprite"]
+self_modulate = Color(0.45098, 0.45098, 0.45098, 1)
 texture = ExtResource("2_5dtjj")
 hframes = 4
 vframes = 2
 
-[node name="Eyes" type="Sprite2D" parent="Sprite"]
+[node name="Outline" type="Sprite2D" parent="ComposedSprite/Skin"]
+modulate = Color(0.0862745, 0.0862745, 0.0862745, 1)
+texture = ExtResource("5_t11y4")
+hframes = 4
+vframes = 2
+
+[node name="Eyes" type="Sprite2D" parent="ComposedSprite"]
 texture = ExtResource("3_d6clr")
 hframes = 4
 vframes = 2
 
-[node name="Iris" type="Sprite2D" parent="Sprite"]
+[node name="Iris" type="Sprite2D" parent="ComposedSprite"]
 modulate = Color(0.0862745, 0.0862745, 0.0862745, 1)
 texture = ExtResource("4_xk5bj")
-hframes = 4
-vframes = 2
-
-[node name="Outline" type="Sprite2D" parent="Sprite"]
-modulate = Color(0.0862745, 0.0862745, 0.0862745, 1)
-texture = ExtResource("5_t11y4")
 hframes = 4
 vframes = 2
 

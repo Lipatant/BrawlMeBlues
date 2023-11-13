@@ -10,7 +10,6 @@ class_name Mustache
 
 func unequip(_destroy: bool = false) -> void:
 	super.unequip(false)
-	print("UNEQUIP")
 	_hitbox.disabled = true
 	_timer.start()
 	modulate = Color.WHITE * Color(1, 1, 1, 0.2)

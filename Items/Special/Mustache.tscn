@@ -35,7 +35,6 @@ debug_color = Color(0.423529, 0.603922, 0, 0.419608)
 texture = ExtResource("3_1j5s3")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
 one_shot = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

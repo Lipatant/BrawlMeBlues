@@ -45,7 +45,7 @@ step = 0.001
 show_percentage = false
 
 [node name="StartingTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 8.0
 one_shot = true
 
 [connection signal="timeout" from="StartingTimer" to="." method="_on_starting_timer_timeout"]

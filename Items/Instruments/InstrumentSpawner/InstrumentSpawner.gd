@@ -10,6 +10,8 @@ var number_generator : RandomNumberGenerator
 @onready var _items : Array[Resource] = [
 	preload("res://Items/Instruments/Clarinet.tscn"),
 	preload("res://Items/Instruments/Trumpet.tscn"),
+	preload("res://Items/Instruments/Microphone.tscn"),
+	preload("res://Items/Instruments/Drum.tscn"),
 ]
 @onready var _timer : Timer = $Timer
 

@@ -4,16 +4,19 @@ class_name Entity
 # EXPORTS #
 
 @export var speed : float = 10000.0
-@export var jump_force : float = 50000.0
+@export var jump_force : float = 25000.0
 @export var jump_count : int = 2
 
+@export var sprite : Node2D
+
 # ONREADIES #
+
+@onready var sprite_animated : Sprite2D = $Sprite
 
 @onready var _invincibiltiy_timer : Timer = $InvincibilityTimer
 @onready var _item_holder : Node2D = $ItemHolder
 @onready var _progress_bar : Range = $ProgressBar
 @onready var _respawn_timer : Timer = $RespawnTimer
-@onready var _sprite : Node2D = $Sprite
 @onready var _wall_jump_movement_timer : Timer = $WallJumpMovement
 
 # OTHER VARIABLES #
@@ -55,17 +58,19 @@ func respawn(spawn_position: Vector2 = Vector2(0, 0)) -> void:
 	_motions = []
 	_hit = false
 	_invincibiltiy_timer.start()
-	if _sprite:
-		_sprite.visible = true
-
+	if sprite:
+		sprite.visible = true
+ 
 func hit(_entity_interacted: Entity = null) -> void:
-	generate_particles(destroyed_particles_resource)
+	var particles : Node2D = generate_particles(destroyed_particles_resource)
+	if particles and "color" in particles and "player_id" in self:
+		particles.color = BmbColor.from_player_id(self.player_id)
 	_hit = true
 	_hit_vector = position
 	_respawn_timer.start()
 	unequip()
-	if _sprite:
-		_sprite.visible = false
+	if sprite:
+		sprite.visible = false
 
 func _on_respawn_timer_timeout():
 	respawn()
@@ -157,7 +162,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		_since_floor += delta
 	if is_wall_sliding():
-#		_jumps = 1 if jump_count >= 1 else jump_count
 		_jumps = jump_count
 		if _since_floor > 0.2:
 			_since_floor = 0.2
@@ -206,6 +210,13 @@ func _process_motion(delta: float = 0.0) -> Vector2:
 		if !_has_motion_key(motion_id, "motion"):
 			motion_id += 1
 			continue
+		if _get_motion_key(motion_id, "motion", Vector2(0, 0)).y < 0 and is_on_ceiling():
+			_set_motion_key(motion_id, "motion", Vector2(_get_motion_key(motion_id, "motion", Vector2(0, 0)).x, 0))
+		if _get_motion_key(motion_id, "motion", Vector2(0, 0)).y > 0 and is_on_floor():
+			_set_motion_key(motion_id, "motion", Vector2(_get_motion_key(motion_id, "motion", Vector2(0, 0)).x, 0))
+		if _get_motion_key(motion_id, "motion", Vector2(0, 0)).x != 0 and is_on_wall():
+			if (_get_motion_key(motion_id, "motion", Vector2(0, 0)).x > 0 and get_wall_normal().x < 0) or (_get_motion_key(motion_id, "motion", Vector2(0, 0)).x < 0 and get_wall_normal().x > 0):
+				_set_motion_key(motion_id, "motion", Vector2(0, _get_motion_key(motion_id, "motion", Vector2(0, 0)).y))
 		if _has_motion_key(motion_id, "duration"):
 			_set_motion_key(motion_id, "duration_max", _get_motion_key(motion_id, "duration"), false)
 			if _get_motion_key(motion_id, "duration_max", 0.0) > 0.0 or _get_motion_key(motion_id, "decreasing"):
@@ -234,7 +245,7 @@ func _has_motion_key(id: int, key: String, default_value: bool = false) -> bool:
 	return _motions[id].has(key)
 
 func _set_motion_key(id: int, key: String, value, can_overwrite: bool = true) -> void:
-	if id >= _motions.size() and (can_overwrite or !_has_motion_key(id, key)):
+	if id < _motions.size() and (can_overwrite or !_has_motion_key(id, key)):
 		_motions[id][key] = value
 
 func _add_to_motion_key(id: int, key: String, value) -> void:
