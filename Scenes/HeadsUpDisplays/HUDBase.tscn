@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd6220dc82a0w"]
+
+[ext_resource type="Script" path="res://Scenes/HeadsUpDisplays/HUDBase/HUDBase.gd" id="1_bnaf2"]
+
+[node name="HUDBase" type="Control"]
+layout_mode = 3
+anchor_left = -0.5
+anchor_top = -0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+script = ExtResource("1_bnaf2")
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]

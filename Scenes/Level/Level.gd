@@ -15,12 +15,25 @@ var _players_waiting : Array[int]
 
 # PROCESS #
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if !_players_waiting.is_empty():
 		for player_id in _players_waiting:
 			if _players.has(player_id):
 				_players[player_id]["player_entity"] = _add_player_entity(_players[player_id]["is_using_controller"], _players[player_id]["controller_id"], player_id)
 		_players_waiting = []
+	for player_id in _players:
+		if !_players[player_id].has("player_entity") or !_players[player_id]["player_entity"]:
+			continue
+		if !_players[player_id].has("current_score"):
+			_players[player_id]["current_score"] = 0.0
+		_on_player_held(delta, player_id, _players[player_id]["player_entity"].held_item)
+
+func _on_player_held(delta: float, player_id: int, held_item: Item) -> void:
+	if !held_item:
+		return
+	if held_item is Mustache:
+		_players[player_id]["current_score"] += delta
+		print(player_id, " ", _players[player_id]["current_score"])
 
 func _physics_process(_delta: float) -> void:
 	for player_id in _players:
