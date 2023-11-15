@@ -16,15 +16,12 @@ class_name Entity
 
 @onready var _invincibiltiy_timer : Timer = $InvincibilityTimer
 @onready var _item_holder : Node2D = $ItemHolder
-@onready var _progress_bar : Range = $ProgressBar
 @onready var _respawn_timer : Timer = $RespawnTimer
 @onready var _wall_jump_movement_timer : Timer = $WallJumpMovement
 
 # OTHER VARIABLES #
 
 var held_item : Item
-var progress : float = 1.0
-var progress_max : float = 20.0
 
 var _jumps : int = 0
 var _motions : Array[Dictionary] = []
@@ -46,8 +43,6 @@ const jump_particles_resource : Resource = preload("res://Particles/EntityJumpPa
 # SPAWN #
 
 func _ready() -> void:
-	if _progress_bar:
-		_progress_bar.max_value = progress_max
 	spawn()
 
 func spawn(spawn_position: Vector2 = Vector2(0, 0)) -> void:
@@ -160,10 +155,6 @@ func _physics_process(delta: float) -> void:
 			position = _hit_vector * (_respawn_timer.time_left / _respawn_timer.wait_time)
 	else:
 		move_and_slide()
-	if held_item and held_item is Mustache:
-		progress += delta
-		if _progress_bar:
-			_progress_bar.value = progress
 	if is_on_ceiling():
 		if _remove_motion_from_id("jump"):
 			generate_particles(ceiling_particles_resource)

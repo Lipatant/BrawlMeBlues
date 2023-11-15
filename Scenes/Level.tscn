@@ -1,13 +1,13 @@
 [gd_scene load_steps=13 format=3 uid="uid://lom3vulr3p4a"]
 
-[ext_resource type="Script" path="res://Scenes/Level/Level.gd" id="1_7rrof"]
-[ext_resource type="PackedScene" uid="uid://oyorii4bh861" path="res://Items/Special/Mustache.tscn" id="2_kt48v"]
-[ext_resource type="PackedScene" uid="uid://bemyowtcgjkug" path="res://Items/Instruments/InstrumentSpawner/InstrumentSpawnerManager.tscn" id="3_yqnkq"]
-[ext_resource type="PackedScene" uid="uid://d4hcf8k2oxpp8" path="res://Items/Instruments/InstrumentSpawner.tscn" id="4_dxk6t"]
+[ext_resource type="Script" path="res://Scenes/Level/Level.gd" id="1_3sa5v"]
+[ext_resource type="PackedScene" uid="uid://oyorii4bh861" path="res://Items/Special/Mustache.tscn" id="2_6chbs"]
+[ext_resource type="PackedScene" uid="uid://bemyowtcgjkug" path="res://Items/Instruments/InstrumentSpawner/InstrumentSpawnerManager.tscn" id="3_qbi68"]
+[ext_resource type="PackedScene" uid="uid://d4hcf8k2oxpp8" path="res://Items/Instruments/InstrumentSpawner.tscn" id="4_dbvob"]
 [ext_resource type="Texture2D" uid="uid://dfgnv7wadbcuy" path="res://Graphics/TilemapTexture.png" id="5_y8sik"]
 [ext_resource type="Texture2D" uid="uid://dovpfguovl1t1" path="res://Graphics/Tilemap.png" id="6_nol6h"]
-[ext_resource type="PackedScene" uid="uid://dd6220dc82a0w" path="res://Scenes/HeadsUpDisplays/HUDBase.tscn" id="7_kxvk2"]
-[ext_resource type="PackedScene" uid="uid://dvwbmy6ykn663" path="res://Scenes/HeadsUpDisplays/HUDPlayersProgressBar.tscn" id="8_w87bp"]
+[ext_resource type="PackedScene" uid="uid://dd6220dc82a0w" path="res://Scenes/HeadsUpDisplays/HUDBase.tscn" id="7_lcw25"]
+[ext_resource type="PackedScene" uid="uid://dvwbmy6ykn663" path="res://Scenes/HeadsUpDisplays/HUDPlayersProgressBar.tscn" id="8_wa07s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4bdvc"]
 size = Vector2(747.5, 462)
@@ -252,8 +252,9 @@ physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_wb1hj")
 sources/1 = SubResource("TileSetAtlasSource_fhicc")
 
-[node name="Level" type="Node2D"]
-script = ExtResource("1_7rrof")
+[node name="Level" type="Node2D" node_paths=PackedStringArray("hud")]
+script = ExtResource("1_3sa5v")
+hud = NodePath("CanvasLayer/HUDBase")
 
 [node name="PlayableArea" type="Area2D" parent="."]
 collision_layer = 8
@@ -265,27 +266,27 @@ debug_color = Color(1, 1, 1, 0.101961)
 
 [node name="PlayerSpawnPoint" type="Node2D" parent="."]
 
-[node name="Mustache" parent="." instance=ExtResource("2_kt48v")]
+[node name="Mustache" parent="." instance=ExtResource("2_6chbs")]
 position = Vector2(0, -89)
 
-[node name="InstrumentSpawnerManager" parent="." instance=ExtResource("3_yqnkq")]
+[node name="InstrumentSpawnerManager" parent="." instance=ExtResource("3_qbi68")]
 
-[node name="InstrumentSpawner1" parent="InstrumentSpawnerManager" instance=ExtResource("4_dxk6t")]
+[node name="InstrumentSpawner1" parent="InstrumentSpawnerManager" instance=ExtResource("4_dbvob")]
 position = Vector2(-136, 0)
 
-[node name="InstrumentSpawner2" parent="InstrumentSpawnerManager" instance=ExtResource("4_dxk6t")]
+[node name="InstrumentSpawner2" parent="InstrumentSpawnerManager" instance=ExtResource("4_dbvob")]
 position = Vector2(136, 0)
 
-[node name="InstrumentSpawner3" parent="InstrumentSpawnerManager" instance=ExtResource("4_dxk6t")]
+[node name="InstrumentSpawner3" parent="InstrumentSpawnerManager" instance=ExtResource("4_dbvob")]
 position = Vector2(-136, 89)
 
-[node name="InstrumentSpawner4" parent="InstrumentSpawnerManager" instance=ExtResource("4_dxk6t")]
+[node name="InstrumentSpawner4" parent="InstrumentSpawnerManager" instance=ExtResource("4_dbvob")]
 position = Vector2(136, 89)
 
-[node name="InstrumentSpawner5" parent="InstrumentSpawnerManager" instance=ExtResource("4_dxk6t")]
+[node name="InstrumentSpawner5" parent="InstrumentSpawnerManager" instance=ExtResource("4_dbvob")]
 position = Vector2(-136, -89)
 
-[node name="InstrumentSpawner6" parent="InstrumentSpawnerManager" instance=ExtResource("4_dxk6t")]
+[node name="InstrumentSpawner6" parent="InstrumentSpawnerManager" instance=ExtResource("4_dbvob")]
 position = Vector2(136, -89)
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -299,9 +300,7 @@ layer_0/tile_data = PackedInt32Array(458746, 262145, 5, 458747, 262145, 5, 45874
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
-[node name="HUDBase" parent="CanvasLayer" instance=ExtResource("7_kxvk2")]
+[node name="HUDBase" parent="CanvasLayer" instance=ExtResource("7_lcw25")]
 
-[node name="HUDPlayersProgressBar" parent="CanvasLayer/HUDBase" instance=ExtResource("8_w87bp")]
+[node name="HUDPlayersProgressBar" parent="CanvasLayer/HUDBase" instance=ExtResource("8_wa07s")]
 layout_mode = 1
-offset_right = 0.0
-offset_bottom = 0.0

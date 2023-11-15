@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvwbmy6ykn663"]
+[gd_scene load_steps=4 format=3 uid="uid://dvwbmy6ykn663"]
 
 [ext_resource type="Script" path="res://Scenes/HeadsUpDisplays/HUDPlayersProgressBar/HUDPlayersProgressBar.gd" id="1_ufg0t"]
 
-[node name="HUDPlayersProgressBar" type="Control" node_paths=PackedStringArray("_range")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njg6r"]
+bg_color = Color(0, 0, 0, 0.196078)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbnp2"]
+
+[node name="HUDPlayersProgressBar" type="Control" node_paths=PackedStringArray("_cursor_parent", "_range")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ufg0t")
+_cursor_parent = NodePath("ProgressBar")
 _range = NodePath("ProgressBar")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
@@ -21,19 +27,9 @@ anchor_bottom = 1.0
 offset_top = -5.0
 grow_horizontal = 2
 grow_vertical = 0
-min_value = -0.01
+theme_override_styles/background = SubResource("StyleBoxFlat_njg6r")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dbnp2")
 max_value = 1.0
+step = 0.001
+value = 0.5
 show_percentage = false
-
-[node name="Cursor" type="ColorRect" parent="ProgressBar"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -3.0
-offset_top = -4.0
-offset_right = 3.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2

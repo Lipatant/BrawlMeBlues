@@ -1,6 +1,10 @@
 extends Node2D
 class_name Level
 
+# EXPORTS #
+
+@export var hud : HUD
+
 # ONREADIES #
 
 @onready var _player_entity_resource : Resource = preload("res://Entities/Player.tscn")
@@ -10,10 +14,15 @@ class_name Level
 
 var scene_manager : SceneManager
 
+var _data_scoring : DataScoring = DataScoring.new(0.0, 20.0)
 var _players : Dictionary
 var _players_waiting : Array[int]
 
 # PROCESS #
+
+func _ready() -> void:
+	if hud:
+		hud.send_data(_data_scoring)
 
 func _process(delta: float) -> void:
 	if !_players_waiting.is_empty():
@@ -24,24 +33,16 @@ func _process(delta: float) -> void:
 	for player_id in _players:
 		if !_players[player_id].has("player_entity") or !_players[player_id]["player_entity"]:
 			continue
-		if !_players[player_id].has("current_score"):
-			_players[player_id]["current_score"] = 0.0
 		_on_player_held(delta, player_id, _players[player_id]["player_entity"].held_item)
 
 func _on_player_held(delta: float, player_id: int, held_item: Item) -> void:
 	if !held_item:
 		return
 	if held_item is Mustache:
-		_players[player_id]["current_score"] += delta
-		print(player_id, " ", _players[player_id]["current_score"])
-
-func _physics_process(_delta: float) -> void:
-	for player_id in _players:
-		if !_players[player_id]["player_entity"] or _players[player_id]["player_entity"].progress < _players[player_id]["player_entity"].progress_max:
-			continue
-		if scene_manager:
-			scene_manager.load_main_menu()
-		break
+		_data_scoring.add_player_score(player_id, delta)
+		print(player_id, " | ", _data_scoring.get_player_score(player_id))
+		if hud:
+			hud.send_data(_data_scoring)
 
 # PLAYERS #
 

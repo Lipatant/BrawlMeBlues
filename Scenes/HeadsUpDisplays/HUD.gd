@@ -3,8 +3,8 @@ class_name HUD
 
 # SEND DATA #
 
-func send_data(_data) -> void:
-	pass
+func send_data(data) -> void:
+	_receive_data(data)
 
 # RECEIVE DATA #
 
