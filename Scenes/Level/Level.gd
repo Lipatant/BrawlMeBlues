@@ -40,7 +40,6 @@ func _on_player_held(delta: float, player_id: int, held_item: Item) -> void:
 		return
 	if held_item is Mustache:
 		_data_scoring.add_player_score(player_id, delta)
-		print(player_id, " | ", _data_scoring.get_player_score(player_id))
 		if hud:
 			hud.send_data(_data_scoring)
 
