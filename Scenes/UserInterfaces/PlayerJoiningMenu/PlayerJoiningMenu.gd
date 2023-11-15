@@ -7,7 +7,7 @@ extends Node
 
 # ONREADY #
 
-@onready var _player_joining_container : BoxContainer = $PlayerJoiningContainer
+@onready var _player_joining_container : Control = $PlayerJoiningContainer
 @onready var _starting_bar : Range = $StartingBar
 @onready var _starting_timer : Timer = $StartingTimer
 
